@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 type Coords = {
@@ -35,27 +34,16 @@ function App() {
 
       const url = `https://cors-anywhere.herokuapp.com/https://rucsoundings.noaa.gov/get_soundings.cgi?${queryStr}&`;
 
-      const result = await fetch(url, { mode: 'cors' });
+      const response = await fetch(url, { mode: 'cors' });
 
-      setForecastText(await result.text());
+      setForecastText(await response.text());
     };
     if (coords) fectchWindsAloftData(coords);
   }, [coords]);
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        {coords && (
-          <dl>
-            <dt>Latitude</dt>
-            <dd>{coords.latitude}</dd>
-            <dt>Longitude</dt>
-            <dd>{coords.longitude}</dd>
-          </dl>
-        )}
-        <code>{forecastText}</code>
-      </header>
+      <code>{forecastText}</code>
     </div>
   );
 }
