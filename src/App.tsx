@@ -1,34 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 
-type Coords = {
-  latitude: number;
-  longitude: number;
+const InitialLocation = {
+  latitude: 0,
+  longitude: 0,
 };
 
 function App() {
-  const [coords, setCoords] = useState<Coords | null>(null);
+  const [location, setLocation] = useState(InitialLocation);
+  const [elevation, setElevation] = useState(0);
   const [forecastText, setForecastText] = useState('');
 
-  const setPosition = (position: GeolocationPosition) => {
-    setCoords({
-      latitude: Number(position.coords.latitude.toFixed(4)),
-      longitude: Number(position.coords.longitude.toFixed(4)),
+  const setCoordinates = (position: GeolocationPosition) => {
+    setLocation({
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude,
     });
   };
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(setPosition);
+    navigator.geolocation.getCurrentPosition(setCoordinates);
   }, []);
 
   useEffect(() => {
-    const fectchWindsAloftData = async (coords: Coords) => {
-      const queryObj = {
-        airport: `${coords.latitude}%2C${coords.longitude}`,
+    const fectchWindsAloftData = async (location: typeof InitialLocation) => {
+      const queryStr = Object.entries({
+        airport: `${location.latitude}%2C${location.longitude}`,
         startSecs: Math.floor(Date.now() / 1000),
         endSecs: Math.floor(Date.now() / 1000) + 3600,
-      };
-      const queryStr = Object.entries(queryObj)
+      })
         .map(pair => pair.join('='))
         .join('&');
 
@@ -38,12 +38,34 @@ function App() {
 
       setForecastText(await response.text());
     };
-    if (coords) fectchWindsAloftData(coords);
-  }, [coords]);
+
+    const fetchElevationData = async (location: typeof InitialLocation) => {
+      const queryStr = Object.entries({
+        x: location.longitude,
+        y: location.latitude,
+        units: 'Meters',
+        output: 'json',
+      })
+        .map(pair => pair.join('='))
+        .join('&');
+
+      const url = `https://nationalmap.gov/epqs/pqs.php?${queryStr}`;
+      const response = await fetch(url);
+      const json = await response.json();
+      setElevation(
+        json.USGS_Elevation_Point_Query_Service.Elevation_Query.Elevation
+      );
+    };
+    if (location.latitude) {
+      fectchWindsAloftData(location);
+      fetchElevationData(location);
+    }
+  }, [location]);
 
   return (
     <div className="App">
       <code>{forecastText}</code>
+      <code>Elevation: {elevation}</code>
     </div>
   );
 }
