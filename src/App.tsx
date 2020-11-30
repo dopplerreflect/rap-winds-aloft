@@ -15,8 +15,8 @@ function App() {
 
   const setCoordinates = (position: GeolocationPosition) => {
     setLocation({
-      latitude: position.coords.latitude,
-      longitude: position.coords.longitude,
+      latitude: Number(position.coords.latitude.toFixed(7)),
+      longitude: Number(position.coords.longitude.toFixed(7)),
     });
   };
 
