@@ -6,6 +6,22 @@ html {
   background-color: hsl(210, 50%, 15%);
   color: hsl(210, 50%, 90%);
 }
+.Header {
+  min-height: 2.5em;
+  position: sticky;
+  top: 0;
+  font-weight: bold;
+  background: hsl(210, 50%, 15%);
+  border-bottom: 2px solid hsl(210, 50%, 30%);
+}
+.Main {
+  min-height: 100vh;
+}
+.settings-icon {
+  width: 1.5em;
+  margin: 0.5em;
+  float: right;
+}
 #winds-aloft-chart {
   display: flex;
   flex-direction: column;

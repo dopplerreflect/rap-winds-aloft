@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import Loader from './Loading.svg';
+import Loader from './components/Loading.svg';
+import Header from './components/Header';
+import WindsAloft from './components/WindsAloft';
 import { transformWindsAloftData } from './utils/winds-aloft';
 
 const InitialLocation = {
@@ -63,66 +65,22 @@ function App() {
 
   return (
     <div className="App">
-      {forecastText ? (
-        <WindsAloft data={transformWindsAloftData(forecastText, elevation)} />
-      ) : (
-        <img
-          src={Loader}
-          alt="Loading indicator"
-          className="Loading-indicator"
-        />
-      )}
+      <div className="Header">
+        <Header />
+      </div>
+      <div className="Main">
+        {forecastText ? (
+          <WindsAloft data={transformWindsAloftData(forecastText, elevation)} />
+        ) : (
+          <img
+            src={Loader}
+            alt="Loading indicator"
+            className="Loading-indicator"
+          />
+        )}
+      </div>
     </div>
   );
 }
 
 export default App;
-
-const WindsAloft: React.FC<{ data: WindsAloftData }> = ({ data }) => (
-  <div id="winds-aloft-chart">
-    {data.soundings.map((sounding, i) => (
-      <div className="sounding" key={i}>
-        <div>{sounding.altitude.feetAGL} ft.</div>
-        <div>{sounding.windSpd.mph} mph</div>
-        <div>
-          <Arrow dir={sounding.windDir} />
-        </div>
-        <div>{sounding.windDir}°</div>
-        <div>{sounding.temp.f}°F</div>
-      </div>
-    ))}
-    <div className="footer">
-      {data.header}
-      <br />
-      {data.op40}
-      <br />
-      Elevation: {data.elevation}m MSL
-    </div>
-  </div>
-);
-
-const Arrow: React.FC<{ dir: number }> = ({ dir }) => (
-  <svg viewBox="0 0 512 512" height="2em" width="2em">
-    <circle
-      cx="256"
-      cy="256"
-      r="237.32505032019532"
-      fill="hsl(210, 100%, 33%)"
-      stroke="hsl(210, 100%, 66%)"
-      strokeWidth="37.349899359609346"
-    />
-    <path
-      d="
-        M 260.4 0
-        L 269.56814539771983 274.6749500197458
-        L 313.475583094649 335.1083534400135
-        L 256 512
-        L 198.52441690535102 335.1083534400135
-        L 242.43185460228014 274.6749500197458
-        L 251.6 0
-        Z"
-      fill="hsl(30, 100%, 50%)"
-      transform={`rotate(${dir}, 256, 256)`}
-    />
-  </svg>
-);
