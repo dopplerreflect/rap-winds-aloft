@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import Loader from './Loading.svg';
 import { transformWindsAloftData } from './utils/winds-aloft';
 
 const InitialLocation = {
@@ -62,8 +63,14 @@ function App() {
 
   return (
     <div className="App">
-      {forecastText && (
+      {forecastText ? (
         <WindsAloft data={transformWindsAloftData(forecastText, elevation)} />
+      ) : (
+        <img
+          src={Loader}
+          alt="Loading indicator"
+          className="Loading-indicator"
+        />
       )}
     </div>
   );
@@ -88,6 +95,8 @@ const WindsAloft: React.FC<{ data: WindsAloftData }> = ({ data }) => (
       {data.header}
       <br />
       {data.op40}
+      <br />
+      Elevation: {data.elevation}m MSL
     </div>
   </div>
 );

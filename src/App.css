@@ -22,3 +22,63 @@ html {
   flex: 1;
   text-align: center;
 }
+.Loading-indicator {
+  height: 25vmin;
+  margin-top: calc(50vh - 12.5vmin);
+  margin-left: calc(50vw - 12.5vmin);
+  pointer-events: none;
+  animation: Loading-indicator-spin infinite 1s step-start;
+}
+@keyframes Loading-indicator-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  6.25% {
+    transform: rotate(22.5deg);
+  }
+  12.5% {
+    transform: rotate(45deg);
+  }
+  18.75% {
+    transform: rotate(67.5deg);
+  }
+  25% {
+    transform: rotate(90deg);
+  }
+  31.25% {
+    transform: rotate(112.5deg);
+  }
+  37.5% {
+    transform: rotate(135deg);
+  }
+  43.75% {
+    transform: rotate(157.5deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  56.25% {
+    transform: rotate(202.5deg);
+  }
+  62.5% {
+    transform: rotate(225deg);
+  }
+  68.75% {
+    transform: rotate(247.5deg);
+  }
+  75% {
+    transform: rotate(270deg);
+  }
+  81.25% {
+    transform: rotate(292.5deg);
+  }
+  87.5% {
+    transform: rotate(315deg);
+  }
+  93.75% {
+    transform: rotate(337.5deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
