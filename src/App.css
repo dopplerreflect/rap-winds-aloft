@@ -7,20 +7,24 @@ html {
   color: hsl(210, 50%, 90%);
 }
 .Header {
-  min-height: 2.5em;
+  min-height: 3em;
   position: sticky;
   top: 0;
   font-weight: bold;
   background: hsl(210, 50%, 15%);
   border-bottom: 2px solid hsl(210, 50%, 30%);
 }
+.Header button {
+  background: none;
+  border: none;
+}
+.menu-icon {
+  height: 2em;
+  margin: 0.5em;
+  /* float: right; */
+}
 .Main {
   min-height: 100vh;
-}
-.settings-icon {
-  width: 1.5em;
-  margin: 0.5em;
-  float: right;
 }
 #winds-aloft-chart {
   display: flex;
@@ -39,7 +43,6 @@ html {
   text-align: center;
 }
 .Loading-indicator {
-  height: 25vmin;
   margin-top: calc(50vh - 12.5vmin);
   text-align: center;
 }
