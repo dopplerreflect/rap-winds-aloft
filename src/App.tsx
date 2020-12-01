@@ -1,94 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
-import Loader from './components/Loading.svg';
 import Header from './components/Header';
+import Settings from './components/Settings';
 import WindsAloft from './components/WindsAloft';
 
-const InitialLocation = {
-  latitude: 0,
-  longitude: 0,
-};
-
 function App() {
-  const [location, setLocation] = useState(InitialLocation);
-  const [elevation, setElevation] = useState(0);
-  const [forecastJSON, setForecastJSON] = useState<WindsAloftData | null>(null);
-  const [status, setStatus] = useState('Loading...');
-
-  const setCoordinates = (position: GeolocationPosition) => {
-    setLocation({
-      latitude: Number(position.coords.latitude.toFixed(7)),
-      longitude: Number(position.coords.longitude.toFixed(7)),
-    });
-  };
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(setCoordinates);
-  }, []);
-
-  useEffect(() => {
-    const fetchElevationData = async (location: typeof InitialLocation) => {
-      if (elevation || !location.latitude) return;
-      setStatus('Determining location elevation...');
-      console.log('Fetching elevation.');
-      const queryStr = Object.entries({
-        x: location.longitude,
-        y: location.latitude,
-        units: 'Meters',
-        output: 'json',
-      })
-        .map(pair => pair.join('='))
-        .join('&');
-      const url = `https://nationalmap.gov/epqs/pqs.php?${queryStr}`;
-      const response = await fetch(url);
-      const json = await response.json();
-      setElevation(
-        json.USGS_Elevation_Point_Query_Service.Elevation_Query.Elevation
-      );
-      setStatus('');
-    };
-    fetchElevationData(location);
-  }, [location, elevation]);
-
-  useEffect(() => {
-    const fetchWindsAloftData = async (
-      location: typeof InitialLocation,
-      elevation: number
-    ) => {
-      if (forecastJSON || !elevation) return;
-      setStatus('Fetching winds aloft forecast data...');
-      console.log('Fetching winds aloft.');
-      const url = `https://weatherflow-dash.herokuapp.com/winds-aloft/${location.latitude}/${location.longitude}/${elevation}`;
-      const response = await fetch(url, { mode: 'cors' });
-      const json = await response.json();
-      console.log(json);
-      setForecastJSON(json);
-      setStatus('');
-    };
-
-    fetchWindsAloftData(location, elevation);
-  }, [location, elevation, forecastJSON]);
-
   return (
-    <div className="App">
-      <div className="Header">
-        <Header />
+    <Router>
+      <div className="App">
+        <div className="Header">
+          <Header />
+        </div>
+        <div className="Main">
+          <Switch>
+            <Route path="/about">
+              <h1>About</h1>
+            </Route>
+            <Route path="/settings">
+              <Settings />
+            </Route>
+            <Route path="/">
+              <WindsAloft />
+            </Route>
+          </Switch>
+        </div>
       </div>
-      <div className="Main">
-        {forecastJSON ? (
-          <WindsAloft data={forecastJSON} />
-        ) : (
-          <div className="Loading-indicator">
-            <h2>{status}</h2>
-            <img
-              src={Loader}
-              alt="Loading indicator"
-              className="Loading-indicator-svg"
-            />
-          </div>
-        )}
-      </div>
-    </div>
+    </Router>
   );
 }
 
