@@ -41,8 +41,10 @@ html {
 .Loading-indicator {
   height: 25vmin;
   margin-top: calc(50vh - 12.5vmin);
-  margin-left: calc(50vw - 12.5vmin);
-  pointer-events: none;
+  text-align: center;
+}
+.Loading-indicator-svg {
+  height: 25vmin;
   animation: Loading-indicator-spin infinite 1s step-start;
 }
 @keyframes Loading-indicator-spin {

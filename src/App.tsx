@@ -14,6 +14,7 @@ function App() {
   const [location, setLocation] = useState(InitialLocation);
   const [elevation, setElevation] = useState(0);
   const [forecastText, setForecastText] = useState('');
+  const [status, setStatus] = useState('');
 
   const setCoordinates = (position: GeolocationPosition) => {
     setLocation({
@@ -29,6 +30,7 @@ function App() {
   useEffect(() => {
     const fetchWindsAloftData = async (location: typeof InitialLocation) => {
       if (!location.latitude) return;
+      setStatus('Fetching winds aloft forecast data...');
       console.log('Fetching winds aloft.');
       const queryStr = Object.entries({
         airport: `${location.latitude}%2C${location.longitude}`,
@@ -39,10 +41,12 @@ function App() {
         .join('&');
       const url = `https://cors-anywhere.herokuapp.com/https://rucsoundings.noaa.gov/get_soundings.cgi?${queryStr}&`;
       const response = await fetch(url, { mode: 'cors' });
-      setForecastText(await response.text());
+      const forecastText = await response.text();
+      setForecastText(forecastText);
     };
     const fetchElevationData = async (location: typeof InitialLocation) => {
       if (!location.latitude) return;
+      setStatus('Determining location elevation...');
       console.log('Fetching elevation.');
       const queryStr = Object.entries({
         x: location.longitude,
@@ -59,8 +63,10 @@ function App() {
         json.USGS_Elevation_Point_Query_Service.Elevation_Query.Elevation
       );
     };
-    fetchElevationData(location);
-    fetchWindsAloftData(location);
+    fetchElevationData(location).then(() => {
+      setStatus('');
+      fetchWindsAloftData(location).then(() => setStatus(''));
+    });
   }, [location]);
 
   return (
@@ -72,11 +78,14 @@ function App() {
         {forecastText ? (
           <WindsAloft data={transformWindsAloftData(forecastText, elevation)} />
         ) : (
-          <img
-            src={Loader}
-            alt="Loading indicator"
-            className="Loading-indicator"
-          />
+          <div className="Loading-indicator">
+            <h2>{status}</h2>
+            <img
+              src={Loader}
+              alt="Loading indicator"
+              className="Loading-indicator-svg"
+            />
+          </div>
         )}
       </div>
     </div>
