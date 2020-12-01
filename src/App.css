@@ -103,3 +103,20 @@ html {
     transform: rotate(360deg);
   }
 }
+
+.Menu {
+  display: flex;
+  flex-direction: column;
+  margin: 1vh 10vw;
+}
+.Menu a {
+  text-decoration: none;
+  color: hsl(210, 50%, 90%);
+  font-size: 2em;
+  font-weight: bold;
+}
+.Menu div {
+  border: 3px solid hsl(210, 50%, 30%);
+  border-radius: 1em;
+  padding: 0 1em 0.5em 1em;
+}

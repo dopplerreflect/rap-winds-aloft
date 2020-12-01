@@ -28,7 +28,6 @@ const WindsAloft: React.FC = () => {
     const fetchElevationData = async (location: typeof InitialLocation) => {
       if (elevation || !location.latitude) return;
       setStatus('Determining location elevation...');
-      console.log('Fetching elevation.');
       const queryStr = Object.entries({
         x: location.longitude,
         y: location.latitude,
@@ -55,11 +54,9 @@ const WindsAloft: React.FC = () => {
     ) => {
       if (forecastJSON || !elevation) return;
       setStatus('Fetching winds aloft forecast data...');
-      console.log('Fetching winds aloft.');
       const url = `https://weatherflow-dash.herokuapp.com/winds-aloft/${location.latitude}/${location.longitude}/${elevation}`;
       const response = await fetch(url, { mode: 'cors' });
       const json = await response.json();
-      console.log(json);
       setForecastJSON(json);
       setStatus('');
     };
