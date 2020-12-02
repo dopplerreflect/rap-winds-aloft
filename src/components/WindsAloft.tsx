@@ -25,9 +25,19 @@ const WindsAloft: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    const cache: WindsAloftData | null = JSON.parse(
+      sessionStorage.getItem('cache') || 'null'
+    );
+    if (cache && cache.hour > new Date().getUTCHours()) {
+      setForecastJSON(cache);
+      setElevation(cache.elevation);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (elevation || !location.latitude) return;
     const abortController = new AbortController();
     const fetchElevationData = async (location: typeof InitialLocation) => {
-      if (elevation || !location.latitude) return;
       try {
         setStatus('Determining location elevation...');
         const queryStr = Object.entries({
@@ -55,18 +65,19 @@ const WindsAloft: React.FC = () => {
   }, [location, elevation]);
 
   useEffect(() => {
+    if (forecastJSON || !elevation) return;
     const abortController = new AbortController();
     const fetchWindsAloftData = async (
       location: typeof InitialLocation,
       elevation: number
     ) => {
       try {
-        if (forecastJSON || !elevation) return;
         setStatus('Fetching winds aloft forecast data...');
         const url = `https://weatherflow-dash.herokuapp.com/winds-aloft/${location.latitude}/${location.longitude}/${elevation}`;
         const response = await fetch(url, { signal: abortController.signal });
         const json = await response.json();
         setForecastJSON(json);
+        sessionStorage.setItem('cache', JSON.stringify(json));
         setStatus('');
       } catch (e) {
         console.error(e.name);
