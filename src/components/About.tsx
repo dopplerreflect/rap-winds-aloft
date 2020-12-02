@@ -7,7 +7,11 @@ const About = () => (
     <h2>What it is</h2>
     <p>
       Display a current winds aloft forecast from{' '}
-      <a href="https://rucsoundings.noaa.gov/" target="_blank" rel="noopener">
+      <a
+        href="https://rucsoundings.noaa.gov/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         rucsoundings.noaa.gov
       </a>
       .
@@ -40,7 +44,11 @@ const About = () => (
     <p>David Rose (doppler@gmail.com)</p>
 
     <p>
-      <a href="https://facebook.com/doppler" target="_blank" rel="noopener">
+      <a
+        href="https://facebook.com/doppler"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         Facebook
       </a>
     </p>
