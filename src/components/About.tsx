@@ -20,6 +20,11 @@ const About = () => (
       start of each hour, and refetched after that.
     </p>
 
+    <p>
+      <span style={{ color: 'yellow', fontWeight: 'bold' }}>PLEASE NOTE:</span>{' '}
+      This app probably only works correctly in the United States, as it uses
+      NOAA and USGS services to gather data.
+    </p>
     <h2>Future plans</h2>
 
     <ul>
