@@ -1,3 +1,6 @@
+.App {
+  font-family: Arial, Helvetica, sans-serif;
+}
 code {
   white-space: pre;
   font-family: 'Courier New', Courier, monospace;
@@ -5,6 +8,13 @@ code {
 html {
   background-color: hsl(210, 50%, 15%);
   color: hsl(210, 50%, 90%);
+}
+a {
+  text-decoration: none;
+}
+a,
+a:visited {
+  color: hsl(210, 50%, 70%);
 }
 .Header {
   min-height: 3em;
@@ -21,10 +31,6 @@ html {
 .menu-icon {
   height: 2em;
   margin: 0.5em;
-  /* float: right; */
-}
-.Main {
-  min-height: 100vh;
 }
 #winds-aloft-chart {
   display: flex;
@@ -102,21 +108,4 @@ html {
   100% {
     transform: rotate(360deg);
   }
-}
-
-.Menu {
-  display: flex;
-  flex-direction: column;
-  margin: 1vh 10vw;
-}
-.Menu a {
-  text-decoration: none;
-  color: hsl(210, 50%, 90%);
-  font-size: 2em;
-  font-weight: bold;
-}
-.Menu div {
-  border: 3px solid hsl(210, 50%, 30%);
-  border-radius: 1em;
-  padding: 0 1em 0.5em 1em;
 }

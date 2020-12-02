@@ -3,6 +3,7 @@ import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
 import Menu from './components/Menu';
+import About from './components/About';
 import WindsAloft from './components/WindsAloft';
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
         <div className="Main">
           <Switch>
             <Route path="/about">
-              <h1>About</h1>
+              <About />
             </Route>
             <Route path="/menu">
               <Menu />
