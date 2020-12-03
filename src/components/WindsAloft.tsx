@@ -20,10 +20,16 @@ const WindsAloft: React.FC = () => {
     });
   };
 
+  /**
+   * On page load, get device geo location
+   */
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(setCoordinates);
   }, []);
 
+  /**
+   * On page load, load forecast data from cache
+   */
   useEffect(() => {
     const cache: WindsAloftData | null = JSON.parse(
       sessionStorage.getItem('cache') || 'null'
@@ -34,10 +40,30 @@ const WindsAloft: React.FC = () => {
     }
   }, []);
 
+  /**
+   * On page load, start a timer that fires every minute.
+   * At the top of the hour, clear the forecast from the cache
+   * so it will re-fetch.
+   */
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (new Date().getMinutes() === 60) {
+        console.log('clearing cache');
+        sessionStorage.removeItem('cache');
+        setForecastJSON(null);
+      }
+    }, 1000 * 60);
+    return () => clearInterval(interval);
+  }, []);
+
+  /**
+   * When location changes, fetch the elevation.
+   */
   useEffect(() => {
     if (elevation || !location.latitude) return;
     const abortController = new AbortController();
     const fetchElevationData = async (location: typeof InitialLocation) => {
+      console.log('fetching elevation');
       try {
         setStatus('Determining location elevation...');
         const queryStr = Object.entries({
@@ -64,6 +90,9 @@ const WindsAloft: React.FC = () => {
     return () => abortController.abort();
   }, [location, elevation]);
 
+  /**
+   * Once elevation is set, fetch the forecastJSON.
+   */
   useEffect(() => {
     if (forecastJSON || !elevation) return;
     const abortController = new AbortController();
@@ -71,6 +100,7 @@ const WindsAloft: React.FC = () => {
       location: typeof InitialLocation,
       elevation: number
     ) => {
+      console.log('fetching winds aloft');
       try {
         setStatus('Fetching winds aloft forecast data...');
         const url = `https://weatherflow-dash.herokuapp.com/winds-aloft/${location.latitude}/${location.longitude}/${elevation}`;
