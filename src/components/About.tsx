@@ -1,10 +1,8 @@
 import './About.css';
-import React from 'react';
 
 const About = () => (
   <div className="About">
     <h1>About</h1>
-    <h2>What it is</h2>
     <p>
       Display a current winds aloft forecast from{' '}
       <a
@@ -25,9 +23,14 @@ const About = () => (
     </p>
 
     <p>
-      <span style={{ color: 'yellow', fontWeight: 'bold' }}>PLEASE NOTE:</span>{' '}
-      This app probably only works correctly in the United States, as it uses
-      NOAA and USGS services to gather data.
+      Reported altitudes are Above Ground Level (AGL). A future option may allow
+      the choice do display altitudes above Mean Sea Level (MSL).
+    </p>
+
+    <p>
+      <span className="warning">PLEASE NOTE:</span> This app probably only works
+      correctly in the United States, as it uses NOAA and USGS services to
+      gather data.
     </p>
     <h2>Future plans</h2>
 

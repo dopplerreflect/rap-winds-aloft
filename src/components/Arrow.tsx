@@ -1,14 +1,15 @@
 const Arrow: React.FC<{ dir: number }> = ({ dir }) => (
   <svg viewBox="0 0 512 512" height="2em" width="2em">
     <circle
+      id="ring"
       cx="256"
       cy="256"
       r="237.32505032019532"
-      fill="hsl(210, 100%, 33%)"
-      stroke="hsl(210, 100%, 66%)"
+      stroke="var(--highlight-color)"
       strokeWidth="37.349899359609346"
     />
     <path
+      id="arrow"
       d="
         M 260.4 0
         L 269.56814539771983 274.6749500197458
@@ -18,7 +19,7 @@ const Arrow: React.FC<{ dir: number }> = ({ dir }) => (
         L 242.43185460228014 274.6749500197458
         L 251.6 0
         Z"
-      fill="hsl(30, 100%, 50%)"
+      fill="var(--warning-color)"
       transform={`rotate(${dir}, 256, 256)`}
     />
   </svg>

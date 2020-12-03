@@ -1,5 +1,5 @@
-import MenuIcon from './MenuIcon.svg';
-import BackButton from './BackButton.svg';
+import MenuButton from './MenuButton';
+import BackButton from './BackButton';
 import { Link, useLocation, useHistory } from 'react-router-dom';
 
 const Header: React.FC = () => {
@@ -9,11 +9,11 @@ const Header: React.FC = () => {
     <div>
       {location.pathname === '/' ? (
         <Link to="/menu">
-          <img src={MenuIcon} alt="menu icon" className="menu-icon" />
+          <MenuButton />
         </Link>
       ) : (
-        <button onClick={() => history.goBack()}>
-          <img src={BackButton} alt="back button" className="menu-icon" />
+        <button onClick={() => history.goBack()} className="icon">
+          <BackButton />
         </button>
       )}
     </div>

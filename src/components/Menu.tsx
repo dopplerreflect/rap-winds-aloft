@@ -1,6 +1,6 @@
 import './Menu.css';
 import { useHistory } from 'react-router-dom';
-import ForwardButton from './ForwardButton.svg';
+import ForwardButton from './ForwardButton';
 const Settings: React.FC = () => {
   const history = useHistory();
 
@@ -13,7 +13,9 @@ const Settings: React.FC = () => {
       <li onClick={() => navigateTo('/about')}>
         <div>About</div>
         <div>
-          <img src={ForwardButton} alt="forward button" className="icon" />
+          <button className="icon">
+            <ForwardButton />
+          </button>
         </div>
       </li>
     </ul>

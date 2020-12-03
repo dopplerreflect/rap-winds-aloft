@@ -4,19 +4,19 @@ ul.Menu {
 }
 ul.Menu li {
   display: grid;
-  grid-template-columns: auto 1em;
+  grid-template-columns: auto 1.5em;
   padding: 0.25em;
   font-size: 2em;
   background-color: hsl(210, 50%, 30%);
-  border: 2px solid hsl(210, 50%, 90%);
+  border: 2px solid var(--highlight-color);
   border-radius: 0.25em;
 }
 ul.Menu li:hover {
-  background-color: hsl(210, 100%, 30%);
+  border: 2px solid var(--text-color);
+}
+ul.Menu li:hover path.arrow {
+  stroke: var(--text-color);
 }
 ul.Menu li > div {
   font-weight: 600;
-}
-ul.Menu img.icon {
-  height: 1em;
 }
