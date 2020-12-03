@@ -9,11 +9,15 @@ const Header: React.FC = () => {
     <div className="container">
       <div>
         {location.pathname === '/' ? (
-          <Link to="/menu">
+          <Link to="/menu" aria-label="Menu">
             <MenuButton />
           </Link>
         ) : (
-          <button onClick={() => history.goBack()} className="icon">
+          <button
+            onClick={() => history.goBack()}
+            className="icon"
+            aria-label="Back"
+          >
             <BackButton />
           </button>
         )}

@@ -13,7 +13,7 @@ const Settings: React.FC = () => {
       <li onClick={() => navigateTo('/about')}>
         <div>About</div>
         <div>
-          <button className="icon">
+          <button className="icon" aria-label="About">
             <ForwardButton />
           </button>
         </div>
