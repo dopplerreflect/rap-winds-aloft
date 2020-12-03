@@ -9,11 +9,11 @@ import WindsAloft from './components/WindsAloft';
 function App() {
   return (
     <Router>
-      <div className="App">
-        <div className="Header">
+      <div id="App">
+        <div id="Header">
           <Header />
         </div>
-        <div className="Main">
+        <div id="Main">
           <Switch>
             <Route path="/about">
               <About />

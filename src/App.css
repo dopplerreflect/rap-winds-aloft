@@ -7,8 +7,18 @@
   --hover-color: hsl(var(--hue), 100%, 50%);
   --warning-color: hsl(30, 100%, 50%);
 }
-.App {
+#App {
   font-family: Arial, Helvetica, sans-serif;
+  display: grid;
+  grid-template-rows: 3em auto;
+  grid-gap: 10px;
+}
+#Header {
+  position: sticky;
+  top: 0;
+  font-weight: bold;
+  background-color: var(--background-color);
+  box-shadow: 0px 5px 15px 0px var(--border-color);
 }
 code {
   white-space: pre;
@@ -27,17 +37,6 @@ a {
 a,
 a:visited {
   color: var(--highlight-color);
-}
-.Header {
-  min-height: 3em;
-  position: sticky;
-  top: 0;
-  font-weight: bold;
-  border-bottom: 1px solid var(--border-color);
-}
-.Header button {
-  background: none;
-  border: none;
 }
 .menu-icon {
   height: 2em;
@@ -124,7 +123,7 @@ button.icon {
   background: none;
   border: none;
   width: 3em;
-  margin: 0.5em 1.5em 0.5em 1em;
+  margin: 0.5em;
 }
 button.icon:hover {
   cursor: pointer;
