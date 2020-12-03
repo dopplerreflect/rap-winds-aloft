@@ -1,10 +1,10 @@
 {
   "short_name": "WindsAloft",
-  "name": "Winds Aloft",
+  "name": "Aloft",
   "start_url": "/rap-winds-aloft/",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff",
+  "theme_color": "#99ccff",
+  "background_color": "#0d1a26",
   "icons": [
     {
       "src": "logo-72x72.png",
