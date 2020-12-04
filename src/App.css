@@ -7,6 +7,13 @@
   --hover-color: hsl(var(--hue), 100%, 50%);
   --warning-color: hsl(30, 100%, 50%);
 }
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: transparent;
+}
 #App {
   font-family: Arial, Helvetica, sans-serif;
   display: grid;
