@@ -4,9 +4,9 @@ const ForwardButton = () => (
       className="arrow"
       d="M 128 24 L 18 128 L 128 232"
       fill="none"
-      stroke-width="48"
-      stroke-linejoin="round"
-      stroke-linecap="round"
+      strokeWidth="48"
+      strokeLinejoin="round"
+      strokeLinecap="round"
       transform="rotate(180, 128 128) translate(48,0)"
     />
   </svg>

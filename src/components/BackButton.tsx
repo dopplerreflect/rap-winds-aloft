@@ -5,9 +5,9 @@ const BackButton = () => (
       d="M 128 24 L 18 128 L 128 232"
       fill="none"
       stroke="var(--highlight-color)"
-      stroke-width="48"
-      stroke-linejoin="round"
-      stroke-linecap="round"
+      strokeWidth="48"
+      strokeLinejoin="round"
+      strokeLinecap="round"
       transform="translate(48,0)"
     />
   </svg>
