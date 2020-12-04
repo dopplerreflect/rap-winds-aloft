@@ -38,6 +38,6 @@ export const useElevation = (
     fetchElevationData(location);
 
     return () => abortController.abort();
-  }, [location]);
+  }, [location, elevation, setStatus]);
   return elevation;
 };
