@@ -10,6 +10,6 @@ test('renders Winds Aloft text', () => {
 
 test('renderes Loading...', () => {
   render(<App />);
-  const text = screen.getByText(/Loading\.\.\./i);
+  const text = screen.getByText(/Loading\.\.\./);
   expect(text).toBeInTheDocument();
 });

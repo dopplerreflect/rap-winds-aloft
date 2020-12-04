@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from '../lib/useLocation';
+import { useElevation } from '../lib/useElevation';
 import Loader from './Loading.svg';
 import Arrow from './Arrow';
 
@@ -8,24 +10,10 @@ const InitialLocation = {
 };
 
 const WindsAloft: React.FC = () => {
-  const [location, setLocation] = useState(InitialLocation);
-  const [elevation, setElevation] = useState(0);
-  const [forecastJSON, setForecastJSON] = useState<WindsAloftData | null>(null);
   const [status, setStatus] = useState('Loading...');
-
-  const setCoordinates = (position: GeolocationPosition) => {
-    setLocation({
-      latitude: Number(position.coords.latitude.toFixed(7)),
-      longitude: Number(position.coords.longitude.toFixed(7)),
-    });
-  };
-
-  /**
-   * On page load, get device geo location
-   */
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(setCoordinates);
-  }, []);
+  const location = useLocation();
+  const elevation = useElevation(location, setStatus);
+  const [forecastJSON, setForecastJSON] = useState<WindsAloftData | null>(null);
 
   /**
    * On page load, load forecast data from cache
@@ -36,7 +24,7 @@ const WindsAloft: React.FC = () => {
     );
     if (cache) {
       setForecastJSON(cache);
-      setElevation(cache?.elevation);
+      // setElevation(cache?.elevation);
     }
   }, []);
 
@@ -57,40 +45,6 @@ const WindsAloft: React.FC = () => {
     }, 1000 * 60);
     return () => clearInterval(interval);
   }, [forecastJSON]);
-
-  /**
-   * When location changes, fetch the elevation.
-   */
-  useEffect(() => {
-    if (elevation || !location.latitude) return;
-    const abortController = new AbortController();
-    const fetchElevationData = async (location: typeof InitialLocation) => {
-      console.log('fetching elevation');
-      try {
-        setStatus('Determining location elevation...');
-        const queryStr = Object.entries({
-          x: location.longitude,
-          y: location.latitude,
-          units: 'Meters',
-          output: 'json',
-        })
-          .map(pair => pair.join('='))
-          .join('&');
-        const url = `https://nationalmap.gov/epqs/pqs.php?${queryStr}`;
-        const response = await fetch(url, { signal: abortController.signal });
-        const json = await response.json();
-        setElevation(
-          json.USGS_Elevation_Point_Query_Service.Elevation_Query.Elevation
-        );
-        setStatus('');
-      } catch (e) {
-        console.error(e.name);
-      }
-    };
-    fetchElevationData(location);
-
-    return () => abortController.abort();
-  }, [location, elevation]);
 
   /**
    * Once elevation is set, fetch the forecastJSON.

@@ -5,7 +5,7 @@
 import '@testing-library/jest-dom';
 
 const mockGeolocation = {
-  getCurrentPosition: jest.fn().mockImplementationOnce(success =>
+  getCurrentPosition: jest.fn(success =>
     Promise.resolve(
       success({
         coords: {
