@@ -1,3 +1,4 @@
+import BuildInfo from '../Revision.json';
 import MenuButton from './MenuButton';
 import BackButton from './BackButton';
 import { Link, useLocation, useHistory } from 'react-router-dom';
@@ -29,6 +30,7 @@ const Header: React.FC = () => {
               .replace(/^\//, '')
               .replace(/[^]/, v => v.toUpperCase())}
       </div>
+      <div>Build: {BuildInfo.revision}</div>
     </div>
   );
 };
