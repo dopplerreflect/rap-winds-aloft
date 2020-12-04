@@ -8,6 +8,11 @@ const Settings: React.FC = () => {
     history.push(path);
   };
 
+  const clearCache = () => {
+    sessionStorage.removeItem('cache');
+    history.goBack();
+  };
+
   return (
     <ul className="Menu">
       <li onClick={() => navigateTo('/about')}>
@@ -17,6 +22,13 @@ const Settings: React.FC = () => {
             <ForwardButton />
           </button>
         </div>
+      </li>
+
+      <li onClick={clearCache}>
+        <div>Clear Cache</div>
+        <button className="icon" aria-label="Clear Cache">
+          <ForwardButton />
+        </button>
       </li>
     </ul>
   );
