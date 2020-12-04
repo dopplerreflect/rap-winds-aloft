@@ -4,10 +4,6 @@ import ForwardButton from './ForwardButton';
 const Settings: React.FC = () => {
   const history = useHistory();
 
-  const navigateTo = (path: string): void => {
-    history.push(path);
-  };
-
   const clearCache = () => {
     sessionStorage.removeItem('cache');
     history.goBack();
@@ -15,10 +11,10 @@ const Settings: React.FC = () => {
 
   return (
     <ul className="Menu">
-      <li onClick={() => navigateTo('/about')}>
+      <li onClick={() => history.push('/about')} aria-label="About">
         <div>About</div>
         <div>
-          <button className="icon" aria-label="About">
+          <button className="icon">
             <ForwardButton />
           </button>
         </div>
