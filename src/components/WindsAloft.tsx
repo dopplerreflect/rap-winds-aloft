@@ -34,27 +34,29 @@ const WindsAloft: React.FC = () => {
     const cache: WindsAloftData | null = JSON.parse(
       sessionStorage.getItem('cache') || 'null'
     );
-    if (cache && cache.hour > new Date().getUTCHours()) {
+    if (cache) {
       setForecastJSON(cache);
-      setElevation(cache.elevation);
+      setElevation(cache?.elevation);
     }
   }, []);
 
   /**
    * On page load, start a timer that fires every minute.
-   * At the top of the hour, clear the forecast from the cache
-   * so it will re-fetch.
+   * When the current hour matches the forecast's hour, clear the
+   * forecast cache.
    */
   useEffect(() => {
     const interval = setInterval(() => {
-      if (new Date().getMinutes() === 60) {
-        console.log('clearing cache');
-        sessionStorage.removeItem('cache');
-        setForecastJSON(null);
+      if (forecastJSON) {
+        if (new Date().getUTCHours() === forecastJSON.hour) {
+          console.log('clearing cache');
+          sessionStorage.removeItem('cache');
+          setForecastJSON(null);
+        }
       }
     }, 1000 * 60);
     return () => clearInterval(interval);
-  }, []);
+  }, [forecastJSON]);
 
   /**
    * When location changes, fetch the elevation.
