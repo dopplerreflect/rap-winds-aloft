@@ -1,5 +1,5 @@
 const MenuButton = () => (
-  <button className="menu icon" aria-label="Menu">
+  <button className="menu icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
       <defs>
         <rect id="bar" width="256" height="48" rx="16" />

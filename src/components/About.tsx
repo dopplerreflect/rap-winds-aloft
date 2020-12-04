@@ -1,5 +1,3 @@
-import './About.css';
-
 const About = () => (
   <div className="About">
     <h1>About</h1>

@@ -9,6 +9,7 @@ const Arrow: React.FC<{ dir: number }> = ({ dir }) => (
       strokeWidth="37.349899359609346"
     />
     <path
+      data-testid="arrow"
       id="arrow"
       d="
         M 260.4 0
