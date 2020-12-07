@@ -6,7 +6,7 @@ const setStatus = jest.fn();
 
 describe('testing useElevation', () => {
   beforeEach(() => {
-    fetch.resetMocks();
+    fetchMock.resetMocks();
   });
   test('with InitialState should return 0', () => {
     const { result } = renderHook(() =>
@@ -16,7 +16,7 @@ describe('testing useElevation', () => {
   });
 
   test('with location should return non-zero', async () => {
-    fetch.mockResponse(
+    fetchMock.mockResponse(
       JSON.stringify({
         USGS_Elevation_Point_Query_Service: {
           Elevation_Query: { Elevation: 261.9 },

@@ -9,7 +9,7 @@ const ForecastResult =
 
 describe('testing useForecast', () => {
   beforeEach(() => {
-    fetch.resetMocks();
+    fetchMock.resetMocks();
   });
   test('with InitialState should return null', () => {
     const { result } = renderHook(() =>
@@ -19,7 +19,7 @@ describe('testing useForecast', () => {
   });
 
   test('with location should return non-zero', async () => {
-    fetch.mockResponse(ForecastResult);
+    fetchMock.mockResponse(ForecastResult);
 
     const { result } = renderHook(() =>
       useForecast(
