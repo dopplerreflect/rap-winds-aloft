@@ -13,7 +13,6 @@ export const useElevation = (
     if (elevation || !location.latitude) return;
     const abortController = new AbortController();
     const fetchElevationData = async (location: typeof InitialLocation) => {
-      console.log('fetching elevation');
       try {
         setStatus('Determining location elevation...');
         const queryStr = Object.entries({

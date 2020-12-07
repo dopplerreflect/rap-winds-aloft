@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import type { WindsAloftData } from '../types';
 import { useLocation } from '../lib/useLocation';
 import { useElevation } from '../lib/useElevation';
+import { useForecast } from '../lib/useForecast';
 import Loader from './Loading.svg';
 import Arrow from './Arrow';
-
-const InitialLocation = {
-  latitude: 0,
-  longitude: 0,
-};
 
 const WindsAloft: React.FC = () => {
   const [status, setStatus] = useState('Loading...');
   const location = useLocation();
   const elevation = useElevation(location, setStatus);
-  const [forecastJSON, setForecastJSON] = useState<WindsAloftData | null>(null);
+  const { forecastJSON, setForecastJSON } = useForecast(
+    location,
+    elevation,
+    setStatus
+  );
 
   /**
    * On page load, load forecast data from cache
@@ -26,7 +27,7 @@ const WindsAloft: React.FC = () => {
       setForecastJSON(cache);
       // setElevation(cache?.elevation);
     }
-  }, []);
+  }, [setForecastJSON]);
 
   /**
    * On page load, start a timer that fires every minute.
@@ -44,35 +45,7 @@ const WindsAloft: React.FC = () => {
       }
     }, 1000 * 60);
     return () => clearInterval(interval);
-  }, [forecastJSON]);
-
-  /**
-   * Once elevation is set, fetch the forecastJSON.
-   */
-  useEffect(() => {
-    if (forecastJSON || !elevation) return;
-    const abortController = new AbortController();
-    const fetchWindsAloftData = async (
-      location: typeof InitialLocation,
-      elevation: number
-    ) => {
-      console.log('fetching winds aloft');
-      try {
-        setStatus('Fetching winds aloft forecast data...');
-        const url = `https://weatherflow-dash.herokuapp.com/winds-aloft/${location.latitude}/${location.longitude}/${elevation}`;
-        const response = await fetch(url, { signal: abortController.signal });
-        const json = await response.json();
-        setForecastJSON(json);
-        sessionStorage.setItem('cache', JSON.stringify(json));
-        setStatus('');
-      } catch (e) {
-        console.error(e.name);
-      }
-    };
-    fetchWindsAloftData(location, elevation);
-
-    return () => abortController.abort();
-  }, [location, elevation, forecastJSON]);
+  }, [forecastJSON, setForecastJSON]);
 
   return forecastJSON ? (
     <div id="winds-aloft-chart">
