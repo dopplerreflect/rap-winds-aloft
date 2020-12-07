@@ -1,6 +1,5 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { act } from 'react-test-renderer';
-import { isExpressionWithTypeArguments } from 'typescript';
 import { useElevation } from './useElevation';
 
 const setStatus = jest.fn();
