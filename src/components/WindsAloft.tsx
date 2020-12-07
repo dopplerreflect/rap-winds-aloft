@@ -10,42 +10,7 @@ const WindsAloft: React.FC = () => {
   const [status, setStatus] = useState('Loading...');
   const location = useLocation();
   const elevation = useElevation(location, setStatus);
-  const { forecastJSON, setForecastJSON } = useForecast(
-    location,
-    elevation,
-    setStatus
-  );
-
-  /**
-   * On page load, load forecast data from cache
-   */
-  useEffect(() => {
-    const cache: WindsAloftData | null = JSON.parse(
-      sessionStorage.getItem('cache') || 'null'
-    );
-    if (cache) {
-      setForecastJSON(cache);
-      // setElevation(cache?.elevation);
-    }
-  }, [setForecastJSON]);
-
-  /**
-   * On page load, start a timer that fires every minute.
-   * When the current hour matches the forecast's hour, clear the
-   * forecast cache.
-   */
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (forecastJSON) {
-        if (new Date().getUTCHours() === forecastJSON.hour) {
-          console.log('clearing cache');
-          sessionStorage.removeItem('cache');
-          setForecastJSON(null);
-        }
-      }
-    }, 1000 * 60);
-    return () => clearInterval(interval);
-  }, [forecastJSON, setForecastJSON]);
+  const { forecastJSON } = useForecast(location, elevation, setStatus);
 
   return forecastJSON ? (
     <div id="winds-aloft-chart">
