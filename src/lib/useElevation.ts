@@ -7,7 +7,7 @@ const InitialLocation = {
 export const useElevation = (
   location: typeof InitialLocation,
   setStatus: React.Dispatch<React.SetStateAction<string>>
-) => {
+): number => {
   const [elevation, setElevation] = useState(0);
   useEffect(() => {
     if (elevation || !location.latitude) return;
@@ -32,7 +32,7 @@ export const useElevation = (
         );
         setStatus('');
       } catch (e) {
-        console.error(e.name);
+        console.error(e);
       }
     };
     fetchElevationData(location);

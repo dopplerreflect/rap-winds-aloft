@@ -35,3 +35,5 @@ type WindsAloftData = {
   elevation: number;
   soundings: Sounding[];
 };
+
+import 'jest-fetch-mock';
