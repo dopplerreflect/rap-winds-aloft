@@ -15,10 +15,8 @@ export const clearCacheIfStale = (
   forecastJSON: WindsAloftData | null,
   setForecastJSON: React.Dispatch<React.SetStateAction<WindsAloftData | null>>
 ) => {
-  console.log(forecastJSON);
   if (forecastJSON) {
     if (hour === forecastJSON.hour) {
-      console.log('clearing cache');
       sessionStorage.removeItem('cache');
       setForecastJSON(null);
     }
