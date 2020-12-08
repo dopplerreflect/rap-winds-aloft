@@ -25,10 +25,7 @@ export const useForecast = (
     const cache: WindsAloftData | null = JSON.parse(
       sessionStorage.getItem('cache') || 'null'
     );
-    if (cache) {
-      setForecastJSON(cache);
-      // setElevation(cache?.elevation);
-    }
+    setForecastJSON(cache);
   }, [setForecastJSON]);
 
   /**
