@@ -37,7 +37,6 @@ const About = () => (
     <ul>
       <li>Integrate map service to fine-tune location</li>
       <li>Provide preference option to view metric or imperial units</li>
-      <li>Provide preference option for light or dark theme</li>
     </ul>
 
     <h2>Contact</h2>
