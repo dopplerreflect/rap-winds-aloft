@@ -10,6 +10,20 @@ type UseForecastReturn = {
   forecastJSON: WindsAloftData | null;
   setForecastJSON: Function;
 };
+export const clearCacheIfStale = (
+  hour: number,
+  forecastJSON: WindsAloftData | null,
+  setForecastJSON: React.Dispatch<React.SetStateAction<WindsAloftData | null>>
+) => {
+  console.log(forecastJSON);
+  if (forecastJSON) {
+    if (hour === forecastJSON.hour) {
+      console.log('clearing cache');
+      sessionStorage.removeItem('cache');
+      setForecastJSON(null);
+    }
+  } else return false;
+};
 
 export const useForecast = (
   location: typeof InitialLocation,
@@ -35,13 +49,11 @@ export const useForecast = (
    */
   useEffect(() => {
     const interval = setInterval(() => {
-      if (forecastJSON) {
-        if (new Date().getUTCHours() === forecastJSON.hour) {
-          console.log('clearing cache');
-          sessionStorage.removeItem('cache');
-          setForecastJSON(null);
-        }
-      }
+      clearCacheIfStale(
+        new Date().getUTCHours(),
+        forecastJSON,
+        setForecastJSON
+      );
     }, 1000 * 60);
     return () => clearInterval(interval);
   }, [forecastJSON, setForecastJSON]);

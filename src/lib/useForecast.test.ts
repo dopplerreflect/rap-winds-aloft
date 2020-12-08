@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { act } from 'react-test-renderer';
-import { useForecast } from './useForecast';
+import { useForecast, clearCacheIfStale } from './useForecast';
 
 const setStatus = jest.fn();
 
@@ -30,5 +30,40 @@ describe('testing useForecast', () => {
     );
     await act(async () => {});
     expect(result.current.forecastJSON?.latitude).toBe(33.97);
+  });
+});
+
+describe('timers', () => {
+  jest.useFakeTimers();
+
+  test('runs timers', () => {
+    const { result } = renderHook(() =>
+      useForecast({ latitude: 0, longitude: 0 }, 0, setStatus)
+    );
+    expect(setInterval).toHaveBeenCalledTimes(2);
+    expect(setInterval).toHaveBeenLastCalledWith(expect.any(Function), 60000);
+    expect(clearInterval).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('clearCacheIfStale', () => {
+  jest.useFakeTimers();
+  const callback = jest.fn();
+
+  test('does not run if not forecastJSON', async () => {
+    const result = clearCacheIfStale(18, null, callback);
+    expect(result).toBe(false);
+  });
+
+  test('runs callback if hour matches forecast hour', async () => {
+    clearCacheIfStale(19, JSON.parse(ForecastResult), callback);
+
+    expect(callback).toBeCalled();
+  });
+
+  test('does not run callback if hour does not match forecast hour', async () => {
+    clearCacheIfStale(18, JSON.parse(ForecastResult), callback);
+
+    expect(callback).not.toBeCalled();
   });
 });
