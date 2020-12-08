@@ -1,11 +1,24 @@
-:root {
-  --hue: 210;
-  --text-color: hsl(var(--hue), 50%, 90%);
-  --background-color: hsl(var(--hue), 50%, 10%);
-  --border-color: hsl(var(--hue), 50%, 30%);
-  --highlight-color: hsl(var(--hue), 100%, 80%);
-  --hover-color: hsl(var(--hue), 100%, 50%);
-  --warning-color: hsl(30, 100%, 50%);
+@media screen and (prefers-color-scheme: dark) {
+  :root {
+    --hue: 210;
+    --text-color: hsl(var(--hue), 50%, 90%);
+    --background-color: hsl(var(--hue), 50%, 10%);
+    --border-color: hsl(var(--hue), 50%, 30%);
+    --highlight-color: hsl(var(--hue), 100%, 80%);
+    --hover-color: hsl(var(--hue), 100%, 50%);
+    --warning-color: hsl(30, 100%, 50%);
+  }
+}
+@media screen and (prefers-color-scheme: light) {
+  :root {
+    --hue: 210;
+    --text-color: hsl(var(--hue), 50%, 10%);
+    --background-color: hsl(var(--hue), 50%, 95%);
+    --border-color: hsl(var(--hue), 50%, 80%);
+    --highlight-color: hsl(var(--hue), 100%, 20%);
+    --hover-color: hsl(var(--hue), 100%, 50%);
+    --warning-color: hsl(30, 100%, 50%);
+  }
 }
 ::-webkit-scrollbar {
   width: 0;
@@ -24,7 +37,7 @@
   position: sticky;
   top: 0;
   background-color: var(--background-color);
-  box-shadow: 0px 5px 15px 0px var(--border-color);
+  box-shadow: 0px 5px 5px 0px var(--border-color);
 }
 #Header .container {
   display: grid;

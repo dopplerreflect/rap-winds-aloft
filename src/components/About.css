@@ -1,12 +1,13 @@
 .About {
-  margin: 5vmin;
+  padding: 5vmin;
 }
 .About h1 {
+  margin-top: 0;
   border-bottom: 1px solid var(--text-color);
 }
-.About h2 {
+/* .About h2 {
   padding: 0 0.5em;
 }
 .About p {
   margin: 1em;
-}
+} */

@@ -7,6 +7,7 @@ const Arrow: React.FC<{ dir: number }> = ({ dir }) => (
       r="237.32505032019532"
       stroke="var(--highlight-color)"
       strokeWidth="37.349899359609346"
+      fill="var(--border-color)"
     />
     <path
       data-testid="arrow"
