@@ -9,8 +9,9 @@ const Switch: React.FC = () => {
   };
 
   return (
-    <label className="switch">
+    <label className="switch" title="displayMetricSwitch">
       <input
+        data-testid="input"
         type="checkbox"
         checked={state.displayMetric}
         onChange={handleClick}
