@@ -10,4 +10,8 @@ describe('SettingsProvider reducer', () => {
       displayMetric: true,
     });
   });
+
+  test('unknown type', () => {
+    expect(reducer(InitialState, { type: 'unknown' })).toEqual(InitialState);
+  });
 });
