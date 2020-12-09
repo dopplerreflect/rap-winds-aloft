@@ -1,15 +1,21 @@
 import './Switch.css';
-import { useState } from 'react';
+import { useSettings } from './SettingsProvider';
+
 const Switch: React.FC = () => {
-  const [checked, setChecked] = useState(false);
+  const { state, dispatch } = useSettings();
 
   const handleClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(state => !state);
+    console.log(event);
+    dispatch({ type: 'toggle-displayMetric' });
   };
 
   return (
     <label className="switch">
-      <input type="checkbox" checked={checked} onChange={handleClick} />
+      <input
+        type="checkbox"
+        checked={state.displayMetric}
+        onChange={handleClick}
+      />
       <span className="slider round"></span>
     </label>
   );

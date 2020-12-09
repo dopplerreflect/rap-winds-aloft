@@ -34,8 +34,7 @@
   left: 4px;
   bottom: 4px;
   background-color: var(--border-color);
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+  transition: 0.2s;
 }
 
 input:checked + .slider {
@@ -47,8 +46,6 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
   transform: translateX(26px);
   background-color: var(--highlight-color);
 }
