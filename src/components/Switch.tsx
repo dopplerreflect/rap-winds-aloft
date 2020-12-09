@@ -1,21 +1,10 @@
 import './Switch.css';
-import { useSettings } from './SettingsProvider';
+import { Settings } from '../types';
 
-const Switch: React.FC = () => {
-  const { state, dispatch } = useSettings();
-
-  const handleClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: 'toggle-displayMetric' });
-  };
-
+const Switch = ({ displayMetric }: Settings) => {
   return (
     <label className="switch" title="displayMetricSwitch">
-      <input
-        data-testid="input"
-        type="checkbox"
-        checked={state.displayMetric}
-        onChange={handleClick}
-      />
+      <input data-testid="input" type="checkbox" checked={displayMetric} />
       <span className="slider round"></span>
     </label>
   );
