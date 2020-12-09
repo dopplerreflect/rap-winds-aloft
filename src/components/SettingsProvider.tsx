@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from 'react';
+import { createContext, useContext, useEffect, useReducer } from 'react';
 
 type Action = { type: 'toggle-displayMetric' } | { type: 'unknown' }; // for testing
 
@@ -6,7 +6,9 @@ type State = {
   displayMetric: boolean;
 };
 
-const InitialState: State = {
+const InitialState: State = JSON.parse(
+  localStorage.getItem('settings') || 'null'
+) || {
   displayMetric: false,
 };
 
@@ -30,6 +32,10 @@ export const useSettings = () => useContext(SettingsContext);
 
 const SettingsProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, InitialState);
+
+  useEffect(() => {
+    localStorage.setItem('settings', JSON.stringify(state));
+  }, [state]);
 
   return (
     <SettingsContext.Provider value={{ state, dispatch }}>
