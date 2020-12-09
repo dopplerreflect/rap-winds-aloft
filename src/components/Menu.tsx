@@ -1,6 +1,7 @@
 import './Menu.css';
 import { useHistory } from 'react-router-dom';
 import ForwardButton from './ForwardButton';
+import Switch from './Switch';
 const Settings: React.FC = () => {
   const history = useHistory();
 
@@ -22,9 +23,18 @@ const Settings: React.FC = () => {
 
       <li onClick={clearCache}>
         <div>Clear Cache</div>
-        <button className="icon" aria-label="Clear Cache">
-          <ForwardButton />
-        </button>
+        <div>
+          <button className="icon" aria-label="Clear Cache">
+            <ForwardButton />
+          </button>
+        </div>
+      </li>
+
+      <li>
+        <div>Display in Metric</div>
+        <div>
+          <Switch />
+        </div>
       </li>
     </ul>
   );

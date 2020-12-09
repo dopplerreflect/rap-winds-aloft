@@ -4,7 +4,7 @@ ul.Menu {
 }
 ul.Menu li {
   display: grid;
-  grid-template-columns: auto 1.5em;
+  grid-template-columns: 75% 25%;
   font-size: 1.5em;
   align-items: center;
   background-color: var(--border-color);
@@ -20,6 +20,6 @@ ul.Menu li:hover {
 ul.Menu li:hover path.arrow {
   stroke: var(--text-color);
 }
-ul.Menu li > div {
-  font-weight: 600;
+ul.Menu li > div:last-child {
+  text-align: right;
 }
