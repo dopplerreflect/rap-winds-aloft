@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer } from 'react';
 
-type Action = { type: 'toggle-displayMetric' };
+type Action = { type: 'toggle-displayMetric' } | { type: 'unknown' }; // for testing
 
 type State = {
   displayMetric: boolean;
@@ -10,8 +10,7 @@ const InitialState: State = {
   displayMetric: false,
 };
 
-function reducer(state: State, action: Action): State {
-  console.log(state, action);
+export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'toggle-displayMetric':
       return {
@@ -19,9 +18,9 @@ function reducer(state: State, action: Action): State {
         displayMetric: !state.displayMetric,
       };
     default:
-      throw new Error();
+      return state;
   }
-}
+};
 
 export const SettingsContext = createContext<{
   state: State;

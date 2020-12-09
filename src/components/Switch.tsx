@@ -5,7 +5,6 @@ const Switch: React.FC = () => {
   const { state, dispatch } = useSettings();
 
   const handleClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event);
     dispatch({ type: 'toggle-displayMetric' });
   };
 
