@@ -1,10 +1,11 @@
 import './Menu.css';
 import { useHistory } from 'react-router-dom';
+import { useSettings } from './SettingsProvider';
 import ForwardButton from './ForwardButton';
 import Switch from './Switch';
 const Settings: React.FC = () => {
   const history = useHistory();
-
+  const { dispatch } = useSettings();
   const clearCache = () => {
     sessionStorage.removeItem('cache');
     history.goBack();
@@ -30,7 +31,11 @@ const Settings: React.FC = () => {
         </div>
       </li>
 
-      <li>
+      <li
+        onClick={() => {
+          dispatch({ type: 'toggle-displayMetric' });
+        }}
+      >
         <div>Display in Metric</div>
         <div>
           <Switch />
