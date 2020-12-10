@@ -1,13 +1,18 @@
 import { createContext, useContext, useEffect, useReducer } from 'react';
-import { Settings, Action } from '../types';
 
-const InitialState: Settings = JSON.parse(
+type Action = { type: 'toggle-displayMetric' } | { type: 'unknown' }; // for testing
+
+type State = {
+  displayMetric: boolean;
+};
+
+const InitialState: State = JSON.parse(
   localStorage.getItem('settings') || 'null'
 ) || {
   displayMetric: false,
 };
 
-export const reducer = (state: Settings, action: Action): Settings => {
+export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'toggle-displayMetric':
       return {
@@ -20,7 +25,7 @@ export const reducer = (state: Settings, action: Action): Settings => {
 };
 
 export const SettingsContext = createContext<{
-  state: Settings;
+  state: State;
   dispatch: React.Dispatch<Action>;
 }>({ state: InitialState, dispatch: () => {} });
 export const useSettings = () => useContext(SettingsContext);

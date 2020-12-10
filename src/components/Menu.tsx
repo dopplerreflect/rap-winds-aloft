@@ -1,6 +1,5 @@
 import './Menu.css';
 import { useHistory } from 'react-router-dom';
-import { useSettings } from './SettingsProvider';
 import ForwardButton from './ForwardButton';
 import Switch from './Switch';
 const Settings: React.FC = () => {
@@ -9,12 +8,6 @@ const Settings: React.FC = () => {
   const clearCache = () => {
     sessionStorage.removeItem('cache');
     history.goBack();
-  };
-
-  const { state, dispatch } = useSettings();
-
-  const handleClick = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
-    dispatch({ type: 'toggle-displayMetric' });
   };
 
   return (
@@ -37,10 +30,10 @@ const Settings: React.FC = () => {
         </div>
       </li>
 
-      <li onClick={handleClick}>
+      <li>
         <div>Display in Metric</div>
         <div>
-          <Switch displayMetric={state.displayMetric} />
+          <Switch />
         </div>
       </li>
     </ul>

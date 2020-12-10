@@ -36,10 +36,4 @@ type WindsAloftData = {
   soundings: Sounding[];
 };
 
-type Action = { type: 'toggle-displayMetric' } | { type: 'unknown' }; // for testing
-
-type Settings = {
-  displayMetric: boolean;
-};
-
 import 'jest-fetch-mock';
