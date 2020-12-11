@@ -1,6 +1,6 @@
 import BuildInfo from '../Revision.json';
 import MenuButton from './MenuButton';
-import BackButton from './BackButton';
+import NavButton from './NavButton';
 import { Link, useLocation, useHistory } from 'react-router-dom';
 
 const Header: React.FC = () => {
@@ -19,7 +19,7 @@ const Header: React.FC = () => {
             className="icon"
             aria-label="Back"
           >
-            <BackButton />
+            <NavButton />
           </button>
         )}
       </div>

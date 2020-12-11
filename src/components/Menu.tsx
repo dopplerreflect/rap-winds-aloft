@@ -1,7 +1,7 @@
 import './Menu.css';
 import { useHistory } from 'react-router-dom';
 import { useSettings } from './SettingsProvider';
-import ForwardButton from './ForwardButton';
+import NavButton from './NavButton';
 import Switch from './Switch';
 const Settings: React.FC = () => {
   const history = useHistory();
@@ -17,7 +17,7 @@ const Settings: React.FC = () => {
         <div>About</div>
         <div>
           <button className="icon">
-            <ForwardButton />
+            <NavButton direction="right" />
           </button>
         </div>
       </li>
@@ -26,7 +26,7 @@ const Settings: React.FC = () => {
         <div>Clear Cache</div>
         <div>
           <button className="icon" aria-label="Clear Cache">
-            <ForwardButton />
+            <NavButton direction="right" />
           </button>
         </div>
       </li>
