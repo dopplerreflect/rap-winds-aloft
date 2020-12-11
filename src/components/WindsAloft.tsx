@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useLocation } from '../lib/useLocation';
 import { useElevation } from '../lib/useElevation';
 import { useForecast } from '../lib/useForecast';
