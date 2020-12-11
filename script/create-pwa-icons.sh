@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if md5sum -c public/logo.svg.md5sum; then
+  echo "No changes to logo.svg. Skipping PNG creation."
+  exit 0;
+fi
+
 if [[ "$(docker images -q image-tools 2> /dev/null)" == "" ]]; then
   echo "Creating image-tools Docker image"
   docker build -t image-tools .
@@ -23,4 +28,6 @@ for n in 32 72 96 128 144 152 192 384 512 \
 ; done
 "
 
-# mv ./public/logo-32x32.png ./public/favicon.png
+mv -f ./public/logo-32x32.png ./public/favicon.png
+
+md5sum public/logo.svg > public/logo.svg.md5sum
