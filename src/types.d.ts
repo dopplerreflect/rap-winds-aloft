@@ -36,4 +36,10 @@ type WindsAloftData = {
   soundings: Sounding[];
 };
 
+type GeoPosition = {
+  latitude: number;
+  longitude: number;
+  altitude: number;
+};
+
 import 'jest-fetch-mock';

@@ -4,16 +4,22 @@ import { useElevation } from '../lib/useElevation';
 import { useForecast } from '../lib/useForecast';
 import Loader from './Loading.svg';
 import Arrow from './Arrow';
-import { WindsAloftData } from '../types';
+import { WindsAloftData, GeoPosition } from '../types';
 import { useSettings } from './SettingsProvider';
 
 const WindsAloft: React.FC = () => {
   const [status, setStatus] = useState('Loading...');
-  const location = useLocation();
-  const elevation = useElevation(location, setStatus);
-  const { forecastJSON } = useForecast(location, elevation, setStatus);
+  const geoPosition = useLocation();
+  const elevation = useElevation(geoPosition, setStatus);
+  const { forecastJSON } = useForecast(geoPosition, elevation, setStatus);
 
-  return <Wrapper status={status} forecastJSON={forecastJSON} />;
+  return (
+    <Wrapper
+      status={status}
+      forecastJSON={forecastJSON}
+      geoPosition={geoPosition}
+    />
+  );
 };
 
 export default WindsAloft;
@@ -21,9 +27,10 @@ export default WindsAloft;
 export const Wrapper: React.FC<{
   status: string;
   forecastJSON: WindsAloftData | null;
-}> = ({ status, forecastJSON }) => {
+  geoPosition: GeoPosition;
+}> = ({ status, forecastJSON, geoPosition }) => {
   return forecastJSON ? (
-    <WindsAloftTable forecastJSON={forecastJSON} />
+    <WindsAloftTable forecastJSON={forecastJSON} geoPosition={geoPosition} />
   ) : (
     <LoaderDiv status={status} />
   );
@@ -40,9 +47,10 @@ export const LoaderDiv: React.FC<{ status: string }> = ({ status }) => (
   </div>
 );
 
-export const WindsAloftTable: React.FC<{ forecastJSON: WindsAloftData }> = ({
-  forecastJSON,
-}) => {
+export const WindsAloftTable: React.FC<{
+  forecastJSON: WindsAloftData;
+  geoPosition: GeoPosition;
+}> = ({ forecastJSON, geoPosition }) => {
   const {
     state: { displayMetric },
   } = useSettings();
@@ -77,6 +85,8 @@ export const WindsAloftTable: React.FC<{ forecastJSON: WindsAloftData }> = ({
         {forecastJSON.op40}
         <br />
         Elevation: {forecastJSON.elevation}m MSL
+        <br />
+        geoPosition: {JSON.stringify(geoPosition, null, 2)}
       </div>
     </div>
   );
