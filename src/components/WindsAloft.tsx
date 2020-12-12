@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocation } from '../lib/useLocation';
+import { useGeoPosition } from '../lib/useGeoPosition';
 import { useElevation } from '../lib/useElevation';
 import { useForecast } from '../lib/useForecast';
 import Loader from './Loading.svg';
@@ -9,7 +9,7 @@ import { useSettings } from './SettingsProvider';
 
 const WindsAloft: React.FC = () => {
   const [status, setStatus] = useState('Loading...');
-  const geoPosition = useLocation();
+  const geoPosition = useGeoPosition();
   const elevation = useElevation(geoPosition, setStatus);
   const { forecastJSON } = useForecast(geoPosition, elevation, setStatus);
 
