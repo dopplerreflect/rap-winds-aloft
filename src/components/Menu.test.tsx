@@ -29,6 +29,18 @@ test('navigates to /about', () => {
   expect(history.location.pathname).toBe('/about');
 });
 
+test('navigates to /debug', () => {
+  const history = createMemoryHistory();
+  render(
+    <Router history={history}>
+      <Menu />
+    </Router>
+  );
+  const debugButton = screen.getByText(/debug/i);
+  userEvent.click(debugButton);
+  expect(history.location.pathname).toBe('/debug');
+});
+
 test('calls clearCache', () => {
   const history = createMemoryHistory();
   render(

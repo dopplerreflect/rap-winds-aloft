@@ -4,25 +4,29 @@ import SettingsProvider from './components/SettingsProvider';
 import Header from './components/Header';
 import Menu from './components/Menu';
 import About from './components/About';
+import Debug from './components/Debug';
 import WindsAloft from './components/WindsAloft';
 
 function App() {
   return (
     <SettingsProvider>
       <Router>
-        <div id="App">
-          <div id="Header">
+        <div id='App'>
+          <div id='Header'>
             <Header />
           </div>
-          <div id="Main">
+          <div id='Main'>
             <Switch>
-              <Route path="/about">
+              <Route path='/about'>
                 <About />
               </Route>
-              <Route path="/menu">
+              <Route path='/menu'>
                 <Menu />
               </Route>
-              <Route path="/">
+              <Route path='/debug'>
+                <Debug />
+              </Route>
+              <Route path='/'>
                 <WindsAloft />
               </Route>
             </Switch>

@@ -12,12 +12,12 @@ const Settings: React.FC = () => {
   };
 
   return (
-    <ul className="Menu">
-      <li onClick={() => history.push('/about')} aria-label="About">
+    <ul className='Menu'>
+      <li onClick={() => history.push('/about')} aria-label='About'>
         <div>About</div>
         <div>
-          <button className="icon">
-            <NavButton direction="right" />
+          <button className='icon'>
+            <NavButton direction='right' />
           </button>
         </div>
       </li>
@@ -25,8 +25,8 @@ const Settings: React.FC = () => {
       <li onClick={clearCache}>
         <div>Clear Cache</div>
         <div>
-          <button className="icon" aria-label="Clear Cache">
-            <NavButton direction="right" />
+          <button className='icon' aria-label='Clear Cache'>
+            <NavButton direction='right' />
           </button>
         </div>
       </li>
@@ -39,6 +39,15 @@ const Settings: React.FC = () => {
         <div>Display in Metric</div>
         <div>
           <Switch />
+        </div>
+      </li>
+
+      <li onClick={() => history.push('/debug')} aria-label='Debug'>
+        <div>Debug</div>
+        <div>
+          <button className='icon'>
+            <NavButton direction='right' />
+          </button>
         </div>
       </li>
     </ul>
